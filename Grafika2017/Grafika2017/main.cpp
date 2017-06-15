@@ -433,6 +433,8 @@ void display()
 	glPopMatrix();
 
 
+	//komentarz do sprawdzenia gita
+
 	//Set the camera
 	gluLookAt(x, y, z,
 		x + lx, y, z + lz,
