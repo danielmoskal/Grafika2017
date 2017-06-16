@@ -157,8 +157,11 @@
     <ClCompile Include="Area.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dron.cpp" />
+    <ClCompile Include="glm.cpp" />
+    <ClCompile Include="glmimg.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

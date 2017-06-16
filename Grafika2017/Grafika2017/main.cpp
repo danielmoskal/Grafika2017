@@ -7,11 +7,22 @@
 #include<glut.h>
 #include<string>
 #include<vector>
-
+#include"glm.hpp"
 #include"Dron.h"
 #include"Area.h"
 #include"Camera.h"
 #include"ObjLoader.h"
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include"glm.h"
+#include "AntTweakBar.h"
 
 
 //do menu
@@ -291,6 +302,44 @@ void setProjection(int w1, int h1)
 //					Wczytywanie obiektow
 //==================================================
 
+GLMmodel *tras;
+void Trasa()
+{
+	if (!tras)
+	{
+		tras = glmReadOBJ("trasa.obj");
+		if (!tras)
+			exit(0);
+		glmFacetNormals(tras);
+		glmVertexNormals(tras, 90.0);
+	}
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.001");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.002");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.003");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.004");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.005");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.006");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.007");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.008");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.009");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.010");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.011");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.012");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.013");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.014");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.015");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.016");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.017");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.018");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.019");
+
+	glPushMatrix();
+	glPopMatrix();
+}
+
 
 void drawObject1()
 {
@@ -405,10 +454,10 @@ void display()
 	//glScalef(1 , 1, 1);
 	//drawObject1();
 
-	drawGround();
-	drawObject1();
+	//drawGround();
+	//drawObject1();
 	//wall();
-
+	Trasa();
 
 	lights();
 
@@ -475,8 +524,7 @@ void display()
 	restorePerspectiveProjection();
 
 	//==============================================================
-
-
+	TwDraw();
 	glFlush();				//skierowanie polecen do wykonania
 	glutSwapBuffers();		//zamiana buforow koloru
 	glutPostRedisplay();		//zeby aktywowac dzialanie
