@@ -313,28 +313,30 @@ void Trasa()
 		glmFacetNormals(tras);
 		glmVertexNormals(tras, 90.0);
 	}
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.001");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.002");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.003");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.004");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.005");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.006");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.007");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.008");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.009");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.010");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.011");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.012");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.013");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.014");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.015");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.016");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.017");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.018");
-	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.019");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere.001");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere.002");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.001");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.002");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.003");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.004");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.005");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.006");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.007");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.008");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.009");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.010");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.011");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.012");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.013");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.014");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.015");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.016");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.017");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.018");
+	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.019");
 
 	glPushMatrix();
 	glPopMatrix();
@@ -458,7 +460,6 @@ void display()
 	//drawObject1();
 	//wall();
 	Trasa();
-
 	lights();
 
 	// Draw 36 SnowMen
@@ -480,7 +481,6 @@ void display()
 	glScalef(0.2, 0.2, 0.2);
 	drawDron();
 	glPopMatrix();
-
 
 	//komentarz do sprawdzenia gita
 

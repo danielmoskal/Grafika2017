@@ -93,11 +93,11 @@ void pressKey(int key, int x, int y)
 		}
 		break;
 	case GLUT_KEY_UP: 
-		deltaMove += 0.4f; 
+		deltaMove += 1.0f; 
 
 		break;
 	case GLUT_KEY_DOWN: 
-		deltaMove += -0.4f;
+		deltaMove += -1.0f;
 
 		break;
 	case GLUT_KEY_F1:
