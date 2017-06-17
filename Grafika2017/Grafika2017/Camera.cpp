@@ -23,18 +23,7 @@ float pochL = 0.0f, pochR = 0.0f, pochF = 0.0f, pochB = 0.0f;
  //=========================================================================
 
  float deltaMove = 0;
- int xOrigin = -1, yOrigin = 1;
-
- float red = 1.0f, green = 1.0f, blue = 1.0f;
-
- //menu status
- int menuFlag = 0,w,h;
-
- int fillMenu, colorMenu, mainMenu;
-
- char gameModeString[40] = "640x480";
- char currentMode[80];
- int current_window;
+ int xOrigin = -1, yOrigin = 1, h,w;
 
  void init();
 
@@ -46,28 +35,6 @@ void processNormalKeys(unsigned char key, int x, int y)
 	if (key == 'a') { cx -= 0.5; } if (key == 'd') { cx += 0.5; }	//left, right
 	if (key == 'q') { cy += 0.5; } if (key == 'z') { cy -= 0.5; }
 	if (key == 'x') { horizontalAngle += 0.66; } if (key == 'c') { horizontalAngle -= 0.66; }
-	if (key == 'r')
-	{
-		int mod = glutGetModifiers();
-		if (mod == GLUT_ACTIVE_ALT)			//alt + r
-			red = 0.0;
-		else
-			red = 1.0;
-	}
-	glutSetMenu(mainMenu);
-	switch (key)
-	{
-	case 27:
-		glutDestroyMenu(mainMenu);
-		glutDestroyMenu(fillMenu);
-		glutDestroyMenu(colorMenu);
-		exit(0);
-		break;
-	case 'c':
-		if (!menuFlag)
-			glutChangeToSubMenu(2, "Color", colorMenu);
-		break;
-	}
 	if (key == 27) { exit(0); }
 }
 
@@ -78,90 +45,28 @@ void pressKey(int key, int x, int y)
 	float fraction = 0.1f;
 	switch (key)
 	{
-	case GLUT_KEY_LEFT: 
-		deltaAngle += -0.006f; 
-		while(pochL <15 )
+	case GLUT_KEY_LEFT:
+		deltaAngle += -0.006f;
+		while (pochL < 15)
 		{
 			pochL += 0.000001f;
 		}
 		break;
-	case GLUT_KEY_RIGHT: 
-		deltaAngle += 0.006f; 
+	case GLUT_KEY_RIGHT:
+		deltaAngle += 0.006f;
 		while (pochR > -15)
 		{
 			pochR -= 0.000001f;
 		}
 		break;
-	case GLUT_KEY_UP: 
-		deltaMove += 1.0f; 
+	case GLUT_KEY_UP:
+		deltaMove += 1.0f;
 
 		break;
-	case GLUT_KEY_DOWN: 
+	case GLUT_KEY_DOWN:
 		deltaMove += -1.0f;
 
 		break;
-	case GLUT_KEY_F1:
-		// define resolution, color depth
-		glutGameModeString("640x480:32");
-		// enter full screen
-		if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) {
-			glutEnterGameMode();
-			sprintf(gameModeString, "640x480:32");
-			// register callbacks again
-			// and init OpenGL context
-			init();
-		}
-		else
-			glutGameModeString(gameModeString);
-		break;
-	case GLUT_KEY_F2:
-		// define resolution, color depth
-		glutGameModeString("800x600:32");
-		// enter full screen
-		if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) {
-			glutEnterGameMode();
-			sprintf(gameModeString, "800x600:32");
-			// register callbacks again
-			// and init OpenGL context
-			init();
-		}
-		else
-			glutGameModeString(gameModeString);
-		break;
-	case GLUT_KEY_F3:
-		// define resolution, color depth
-		glutGameModeString("1024x768:32");
-		// enter full screen
-		if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) {
-			glutEnterGameMode();
-			sprintf(gameModeString, "1024x768:32");
-			// register callbacks again
-			// and init OpenGL context
-			init();
-		}
-		else
-			glutGameModeString(gameModeString);
-		break;
-	case GLUT_KEY_F4:
-		// return to default window
-		w = 800; h = 600;
-		if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE) != 0) {
-			glutLeaveGameMode();
-			glutSetWindow(current_window);
-			init();
-		}
-		break;
-	}
-	if (glutGameModeGet(GLUT_GAME_MODE_ACTIVE) == 0)
-		sprintf(currentMode, "Current Mode: Window");
-	else
-	{
-		sprintf(currentMode,
-			"Current Mode: Game Mode %dx%d at %d hertz, %d bpp",
-			glutGameModeGet(GLUT_GAME_MODE_WIDTH),
-			glutGameModeGet(GLUT_GAME_MODE_HEIGHT),
-			glutGameModeGet(GLUT_GAME_MODE_REFRESH_RATE),
-			glutGameModeGet(GLUT_GAME_MODE_PIXEL_DEPTH));
 	}
 }
 
@@ -186,17 +91,12 @@ void mouseButton(int button, int state, int x, int y)
 		if (state == GLUT_UP)
 		{
 			horizontalAngle += deltaAngle;
-			//verticalAngle += deltaBeta;
 			horizontalAngle += mouseSpeed * deltaAngle * float(xOrigin / 2 - x);
-			//verticalAngle += mouseSpeed * deltaBeta * float(yOrigin / 2 - y);
 			xOrigin = -1;
-			//yOrigin = 1;
 		}
 		else
 		{ //(state = GLUT_DOWN)
 			xOrigin = x;
-			//yOrigin = y;
-			//verticalAngle -= deltaBeta;
 		}
 	}
 	else if(button == GLUT_RIGHT_BUTTON)	//zeby sie pojawil ponownie
@@ -209,17 +109,13 @@ void mouseMove(int x, int y)
 {	// this will only be true when the left button is down
 	if (xOrigin >= 0)
 	{
-		// update deltaAngle / deltaBeta
+		// update deltaAngle
 		deltaAngle = (x - xOrigin) * mouseSpeed;
-		//deltaBeta = (y - yOrigin) * mouseSpeed;
 
 		// update camera's direction
-	/*	lx = sin(horizontalAngle + deltaAngle);
-		lz = -cos(horizontalAngle + deltaAngle);
-		ly = sin(verticalAngle + deltaBeta);*/
+
 		lx = cos(verticalAngle) * sin(horizontalAngle);
 		lz = sin(verticalAngle);
-		//ly = cos(verticalAngle) * cos(horizontalAngle);
 	}
 }
 

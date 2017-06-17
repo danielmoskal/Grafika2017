@@ -89,11 +89,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\lib;C:\Users\daniel\Source\Repos\Grafika2017\biblioteki\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -119,13 +119,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\glm\glm;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\lib;C:\Users\Tasaczek\Source\Repos\Grafika2017\biblioteki\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,7 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Area.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Dron.h" />
     <ClInclude Include="FaceData.h" />
@@ -154,7 +153,6 @@
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Area.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Dron.cpp" />
     <ClCompile Include="glm.cpp" />
