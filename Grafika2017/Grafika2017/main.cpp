@@ -487,7 +487,8 @@ void display()
 	glPushMatrix();
 	glRotatef(pochL + pochR, 0, 0, 1);
 	glRotatef(pochF + pochB, 0, 1, 0);
-	glTranslatef(-3, 0, -25);
+	glRotatef(-180, 0, 1, 0);
+	glTranslatef(-5, 0, 20);
 	glScalef(0.2, 0.2, 0.2);
 	drawDron();
 	glPopMatrix();
