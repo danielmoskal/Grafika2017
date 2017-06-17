@@ -323,31 +323,11 @@ void Trasa()
 		glmFacetNormals(tras);
 		glmVertexNormals(tras, 90.0);
 	}
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cylinder");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere.001");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere.002");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.001");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.002");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.003");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.004");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.005");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.006");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.007");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.008");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.009");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.010");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.011");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.012");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.013");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.014");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.015");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.016");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.017");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.018");
-	//glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cone.019");
-
 	glPushMatrix();
 	glPopMatrix();
 }
@@ -473,13 +453,13 @@ void display()
 	lights();
 
 	// Draw 36 SnowMen
-	for (int i = -3; i < 3; i++)
-		for (int j = -3; j < 3; j++) {
-			glPushMatrix();
-			glTranslatef(i*10.0, 0, j * 10.0);
-			drawSnowMan();
-			glPopMatrix();
-		}
+	//for (int i = -3; i < 3; i++)
+	//	for (int j = -3; j < 3; j++) {
+	//		glPushMatrix();
+	//		glTranslatef(i*10.0, 0, j * 10.0);
+	//		drawSnowMan();
+	//		glPopMatrix();
+	//	}
 
 	// Reset transformations
 	glLoadIdentity();
@@ -758,8 +738,6 @@ int main(int argc, char **argv)
 	glutSpecialUpFunc(releaseKey);
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);
-	//glutKeyboardFunc(keyboard);                               // register Keyboard Handler
-//glutSpecialFunc(keyboard);
 
 	init();
 
