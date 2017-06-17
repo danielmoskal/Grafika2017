@@ -36,8 +36,18 @@
 #define FILL 2
 ///////////////
 
-OBJLoader l;
+typedef struct {
+	int width;
+	int height;
+	char* title;
 
+	float field_of_view_angle;
+	float z_near;
+	float z_far;
+} glutWindow;
+
+OBJLoader l;
+glutWindow win;
 
 extern int fillMenu, colorMenu, mainMenu;
 
@@ -481,9 +491,17 @@ void display()
 	glScalef(0.2, 0.2, 0.2);
 	drawDron();
 	glPopMatrix();
+	//glRotatef(180, 0, 1, 0);
 
-	//komentarz do sprawdzenia gita
+	//glRotatef(pochL + pochR, 0, 0, 1);
+	//glRotatef(pochF + pochB, 0, 1, 0);
 
+	//glPushMatrix();
+	//glScalef(0.02, 0.02, 0.02);
+	//glTranslatef(-3, 0, -25);
+	////glRotatef(-90, 0, 1, 0);
+	//drawDron();
+	//glPopMatrix();
 	//Set the camera
 	gluLookAt(x, y, z,
 		x + lx, y, z + lz,
@@ -632,24 +650,106 @@ void createPopupMenus()
 //					MAIN
 //==================================================
 
+//void init()
+//{
+//	l.LoadFromFile("cube.obj");
+//
+//	gluPerspective(35, 1.0f, 0.1f, 1000);
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
+//	glEnable(GL_NORMALIZE);
+//	glEnable(GL_COLOR_MATERIAL);
+//	glEnable(GL_DEPTH_TEST | GL_CULL_FACE);
+//	glEnable(GL_LIGHTING);
+//	glEnable(GL_LIGHT0);
+//	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 1.0f);
+//	glClearColor(0.0, 0.0, 1.0, 1);
+//
+//	glutDisplayFunc(display);
+//	glutReshapeFunc(changeSize);
+//	glutIdleFunc(display);
+//
+//	glutIgnoreKeyRepeat(1);
+//	glutKeyboardFunc(processNormalKeys);
+//	glutSpecialFunc(pressKey);
+//	glutSpecialUpFunc(releaseKey);
+//	glutMouseFunc(mouseButton);
+//	glutMotionFunc(mouseMove);
+//
+//	//model loading
+//
+//
+//}
+//
+//
+//
+//int main(int argc, char **argv)
+//{
+//	glutInit(&argc, argv);
+//	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+//	//glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+//	glutInitWindowPosition(0, 0);
+//	glutInitWindowSize(800, 600);
+//	glutCreateWindow("Projekt grafika");
+//	current_window = glutGetWindow();
+//
+//	init();
+//
+//	createPopupMenus();
+//
+//
+//	glutMainLoop();
+//
+//	return 1;
+//}
+
+
+//nowe
 void init()
 {
-	l.LoadFromFile("cube.obj");
-
-	gluPerspective(35, 1.0f, 0.1f, 1000);
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
+	glViewport(0, 0, win.width, win.height);
+	GLfloat aspect = (GLfloat)win.width / win.height;
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glEnable(GL_NORMALIZE);
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_DEPTH_TEST | GL_CULL_FACE);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 1.0f);
-	glClearColor(0.0, 0.0, 1.0, 1);
+	gluPerspective(win.field_of_view_angle, aspect, win.z_near, win.z_far);
+	glMatrixMode(GL_MODELVIEW);
+	glShadeModel(GL_SMOOTH);
+	glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	GLfloat amb_light[] = { 0.1, 0.1, 0.1, 1.0 };
+	GLfloat diffuse[] = { 0.6, 0.6, 0.6, 1 };
+	GLfloat specular[] = { 0.7, 0.7, 0.3, 1 };
 
-	glutDisplayFunc(display);
-	glutReshapeFunc(changeSize);
-	glutIdleFunc(display);
+	glEnable(GL_COLOR_MATERIAL);
+	glShadeModel(GL_SMOOTH);
+
+	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_DEPTH_TEST);
+}
+
+
+
+int main(int argc, char **argv)
+{
+	// set window values
+	win.width = 640;
+	win.height = 480;
+	win.title = "Projekt Grafika";
+	win.field_of_view_angle = 45;
+	win.z_near = 1.0f;
+	win.z_far = 500.0f;
+
+	// initialize and run program
+	glutInit(&argc, argv);                                      // GLUT initialization
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);  // Display Mode
+	glutInitWindowSize(win.width, win.height);                  // set window size
+	glutCreateWindow(win.title);                                // create Window
+	glutDisplayFunc(display);                                   // register Display Function
+	glutIdleFunc(display);                                  // register Idle Function
 
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(processNormalKeys);
@@ -657,29 +757,13 @@ void init()
 	glutSpecialUpFunc(releaseKey);
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);
-
-	//model loading
-
-
-}
-
-
-
-int main(int argc, char **argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(800, 600);
-	glutCreateWindow("Projekt grafika");
-	current_window = glutGetWindow();
+	//glutKeyboardFunc(keyboard);                               // register Keyboard Handler
+//glutSpecialFunc(keyboard);
 
 	init();
 
 	createPopupMenus();
 
 
-	glutMainLoop();
-
-	return 1;
+	glutMainLoop();                             return 0;
 }
