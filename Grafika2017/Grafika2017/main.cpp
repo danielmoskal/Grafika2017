@@ -311,7 +311,7 @@ void setProjection(int w1, int h1)
 //==================================================
 //					Wczytywanie obiektow
 //==================================================
-
+//koment
 GLMmodel *tras;
 void Trasa()
 {
