@@ -282,9 +282,9 @@ void display()
 	}
 	odlegloscD = odleglosc - 2.6;
 	char str[10];
-	sprintf(str, "%f", odleglosc);
-	DrawString(5, 2, -58, "PRZESZKODA --> ");
-	DrawString(13, 1.5,-58, str);
+	sprintf(str, "%f", odlegloscD);
+	DrawString(5, 3, -58, "PRZESZKODA --> ");
+	DrawString(13, 2,-58, str);
 	glPushMatrix();
 	glTranslatef(25, -1, 25);
 	glScalef(3, 3, 3);
