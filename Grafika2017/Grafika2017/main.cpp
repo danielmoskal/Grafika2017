@@ -36,6 +36,11 @@ typedef struct {
 OBJLoader l;
 glutWindow win;
 
+bool collision = false;
+float odleglosc = 0;
+float odlegloscD = odleglosc;
+
+
 extern int fillMenu, colorMenu, mainMenu;
 
 //Move entity
@@ -51,7 +56,7 @@ extern float lx, lz;
 extern float x, z, y;
 
 //These variables will be zero when no key is being presses
-extern float deltaAngle, deltaMove;
+extern float deltaAngle, deltaMove, deltaMoveDown;
 extern int xOrigin;
 
 using namespace std;
@@ -59,10 +64,31 @@ using namespace std;
 // width and height of the window
 extern int h, w;
 
-
 void drawDron()
 {
 	Dron dron;
+}
+
+void kolizja()
+{
+	odleglosc = 0;
+	float PrzeszkodaX[20] = { 21 };
+	float PrzeszkodaZ[20] = { -57.9 };
+	for (int i = 0; i < 1; i++)
+	{
+		odleglosc = sqrt((x - PrzeszkodaX[i])*(x - PrzeszkodaX[i]) + (z - PrzeszkodaZ[i])*(z - PrzeszkodaZ[i]));
+		if (odleglosc < 2.7)
+		{
+			collision = true;
+			break;
+		}
+		else
+		{
+			collision = false;
+		}
+
+	}
+
 }
 
 void renderBitmapString(float x, float y, float z, void *font, char *string)
@@ -120,6 +146,7 @@ void Trasa()
 		glmVertexNormals(tras, 90.0);
 	}
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cylinder");
+	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Cylinder.001");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Plane");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere");
 	glmDraw(tras, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE, " Sphere.001");
@@ -189,20 +216,81 @@ void lights()
 //					     END
 //==================================================
 
+void DrawString(int x, int y, int z, char * string)
+{
+	// po³o¿enie napisu
+	glRasterPos3i(x, y,z);
+
+	// wyœwietlenie napisu
+	int len = strlen(string);
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, string[i]);
+
+}
+
+void drawSnowMan()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	{
+		glScalef(1, 1, 1);
+		glColor3f(1.0f, 1.0f, 1.0f);
+
+		//Draw Body
+		glTranslatef(0.0f, 0.75f, 0.0f);
+		glutSolidSphere(0.75f, 20, 20);
+
+		// Draw Head
+		glTranslatef(0.0f, 1.0f, 0.0f);
+		glutSolidSphere(0.25f, 20, 20);
+
+		// Draw Eyes
+		glPushMatrix();
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glTranslatef(0.05f, 0.10f, 0.18f);
+		glutSolidSphere(0.05f, 10, 10);
+		glTranslatef(-0.1f, 0.0f, 0.0f);
+		glutSolidSphere(0.05f, 10, 10);
+		glPopMatrix();
+
+		// Draw Nose
+		glColor3f(1, 1, 1);
+		glRotatef(0.0f, 1.0f, 0.0f, 0.0f);
+		glutSolidCone(0.08f, 0.5f, 10, 2);
+
+		glColor3f(1.0f, 1.0f, 1.0f);
+	}
+
+}
 
 
 void display()
 {
 	if (deltaMove)
 		computePos(deltaMove);
+	if (deltaMoveDown)
+		computePos(deltaMoveDown);
 	if (deltaAngle)
 		computeDir(deltaAngle);
-
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	Trasa();
 	lights();
+	kolizja();
+	if (collision)
+	{
+		deltaMove = 0;
+	}
+	odlegloscD = odleglosc - 2.6;
+	char str[10];
+	sprintf(str, "%f", odleglosc);
+	DrawString(5, 2, -58, "PRZESZKODA --> ");
+	DrawString(13, 1.5,-58, str);
+	glPushMatrix();
+	glTranslatef(25, -1, 25);
+	glScalef(3, 3, 3);
+	drawSnowMan();
+	glPopMatrix();
+
 
 	// Reset transformations
 	glLoadIdentity();
@@ -211,8 +299,8 @@ void display()
 	glRotatef(pochL + pochR, 0, 0, 1);
 	glRotatef(pochF + pochB, 0, 1, 0);
 	glRotatef(-180, 0, 1, 0);
-	glTranslatef(-5, 0, 20);
-	glScalef(0.2, 0.2, 0.2);
+	glTranslatef(-0.2, 0, 1);
+	glScalef(0.01, 0.01, 0.01);
 	drawDron();
 	glPopMatrix();
 
@@ -220,7 +308,6 @@ void display()
 	gluLookAt(x, y, z,
 		x + lx, y, z + lz,
 		0.0f, 1.0f, 0.0f);
-
 
 	//==============================================================
 	TwDraw();
@@ -283,6 +370,17 @@ void init()
 
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_DEPTH_TEST);
+	TwInit(TW_OPENGL, NULL);
+	TwWindowSize(win.width, win.height);
+	TwBar *myBar;
+	myBar = TwNewBar("System");
+	//TwAddVarRW(myBar, "kat Y: ", TW_TYPE_FLOAT, &systembat.speed, "label='Predkosc: ' ");
+	TwAddVarRW(myBar, "X: ", TW_TYPE_FLOAT, &x, "group=Pozycja label='x: ' ");
+	TwAddVarRW(myBar, "y: ", TW_TYPE_FLOAT, &y, "group=Pozycja label='y: ' ");
+	TwAddVarRW(myBar, "z: ", TW_TYPE_FLOAT, &z, "group=Pozycja label='z: ' ");
+	TwAddVarRW(myBar, "od: ", TW_TYPE_FLOAT, &odlegloscD, "group=Przeszkoda label='odleglosc: ' ");
+	//TwAddVarRW(myBar, "kat X: ", TW_TYPE_FLOAT, &systembat.katX, "group=Katy label='kat X: ' ");
+	//TwAddVarRW(myBar, "Nachylenie: ", TW_TYPE_FLOAT, &dron.nachyl, "group=Katy label='Nachylenie: ' ");
 }
 
 
@@ -314,5 +412,7 @@ int main(int argc, char **argv)
 
 	init();
 
-	glutMainLoop();                             return 0;
+	glutMainLoop();
+	TwTerminate();
+	return 0;
 }
